@@ -4,4 +4,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Tela de login")
+    return HttpResponse(render(request, 'login/index.html'))
