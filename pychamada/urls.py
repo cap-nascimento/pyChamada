@@ -1,5 +1,5 @@
 """
-URL configuration for pyChamada project.
+URL configuration for pychamada project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -15,9 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import path, include
+from django.views.generic.base import TemplateView
+
+from . import views
 
 urlpatterns = [
-    path('login/', include('login.urls')),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('admin/', admin.site.urls),
+    path('account/', include('django.contrib.auth.urls')),
+    path('account/register/', views.register, name='register'),
+    path('account/register_user/', views.register_user, name='register_user'),
 ]
