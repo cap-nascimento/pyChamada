@@ -19,8 +19,11 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView
 
 from . import views
-from turma import views as views_turma
+from turma import views
 
 urlpatterns = [
-    path('<int:responsavel_id>/', views_turma.index_turmas, name='index_turmas')
+    path('', views.index_turmas, name='index_turmas'),
+    path('create/turma/', views.create_turma, name='create_turma'),
+    path('create/turma/post', views.create_turma_post, name='create_turma_post'),
+    path('detail/<int:turma_id>', views.detail_turma, name='detail_turma'),
 ]
