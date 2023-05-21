@@ -28,4 +28,7 @@ urlpatterns = [
 
     #turma
     path('turmas/', include("turma.urls")),
+    
+    #qrcode
+    path('qrcode/', include('qrcodereader.urls')),
 ]

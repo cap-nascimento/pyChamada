@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <p>qr code para {{ qr_type }}</p>
+    <img src="{% static filename %}" alt="qr_code" >
+{% endblock %}

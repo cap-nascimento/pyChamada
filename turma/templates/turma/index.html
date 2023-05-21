@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 
-{% block title %}Suas Turmas{% endblock %}
-
 {% if user.is_authenticated %}
     {% block content %}
         <h1> Suas Turmas</h1>
@@ -23,5 +21,6 @@
         {% else %}
             <p>Nenhuma turma cadastrada.</p>
         {% endif %}
+        <p><a href="{% url 'home' %}">Voltar para home</a></p>
     {% endblock %}
 {% endif %}

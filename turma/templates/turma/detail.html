@@ -1,15 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Detail Turma{% endblock %}
-
 {% if user.is_authenticated %}
     {% block content %}
     <h1> {{ turma.codigo }} - {{ turma.nome }} </h1>
 
     <br>
 
-    <form action="/qrcode/{{ turma }}/">
-        <input type="submit" value="QR Code de Incricao na Turma" />
+    <form action="/qrcode/generator/turma/{{ turma.id }}">
+        <input type="submit" value="QR Code de Inscricao na Turma" />
     </form>
 
     <br>
