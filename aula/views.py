@@ -7,7 +7,6 @@ from turma.models import Turma
 from .models import Aula
 
 import datetime
-# Create your views here.
 
 
 def create_aula(request, turma_id):

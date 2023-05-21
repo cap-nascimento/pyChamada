@@ -6,8 +6,8 @@
     <h1> Agendar Aula para {{ turma.codigo }} - {{ turma.nome }} </h1>
     {{ erros }}
     <form action="/turmas/{{ turma.pk }}/create/aula/post" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <button type="submit">OK</button>
-        </form>
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">OK</button>
+    </form>
 {% endblock %}
