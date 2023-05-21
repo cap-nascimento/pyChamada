@@ -5,23 +5,24 @@ from .forms import UserRegistrationForm
 
 from django.contrib.auth.models import User
 
+
 def register(request):
-    return render(request, 'registration/register.html', {
-        'form': UserRegistrationForm(),
-    })
-
-
-def register_user(request):
-    errors = None
+    errors = []
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            print(form)
+            # print(form.data)
+            user = User.objects.create_user(
+                username=form.data['nome'], email=form.data['email'], 
+                password=form.data['senha']
+            )
             return redirect(reverse('login'))
         else:
-            errors = form.errors.as_json()
+            for key in form.errors.keys():
+                for value in form.errors[key]:
+                    errors.append(value)
         
-    return redirect(reverse('register'), {
+    return render(request, 'registration/register.html', {
         'form': UserRegistrationForm(),
         'errors': errors,
     })
