@@ -9,9 +9,3 @@ class TurmaRegistrationForm(forms.ModelForm):
     class Meta:
         model = Turma
         fields = ["codigo", "nome"]
-
-class DateInput(forms.DateInput):
-    input_type = 'date'
-
-class TimeInput(forms.TimeInput):
-    input_type = 'time'
