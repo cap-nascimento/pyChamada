@@ -10,14 +10,3 @@ class Turma(models.Model):
     responsavel = models.ForeignKey(User, on_delete=models.CASCADE)
     # alunos = models.ManyToManyRel(User)
     
-    
-class Aula(models.Model):
-    turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
-    inicio = models.DateTimeField()
-    fim = models.DateTimeField()
-    
-    
-class Presenca(models.Model):
-    aula = models.ForeignKey(Aula, on_delete=models.CASCADE)
-    aluno = models.ForeignKey(User, on_delete=models.CASCADE)
-    registro = models.DateTimeField()

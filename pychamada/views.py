@@ -11,12 +11,14 @@ def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            # print(form.data)
-            user = User.objects.create_user(
-                username=form.data['nome'], email=form.data['email'], 
-                password=form.data['senha']
-            )
-            return redirect(reverse('login'))
+            try:
+                user = User.objects.create_user(
+                    username=form.data['nome'], email=form.data['email'], 
+                    password=form.data['senha']
+                )
+                return redirect(reverse('login'))
+            except:
+                errors.append('An error occurred!')
         else:
             for key in form.errors.keys():
                 for value in form.errors[key]:

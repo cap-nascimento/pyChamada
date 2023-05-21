@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Detail Turma{% endblock %}
+
+{% if user.is_authenticated %}
+    {% block content %}
+    <h1> {{ turma.codigo }} - {{ turma.nome }} </h1>
+
+    <br>
+
+    <form action="/qrcode/{{ turma }}/">
+        <input type="submit" value="QR Code de Incricao na Turma" />
+    </form>
+
+    <br>
+
+    <form action="/turmas/{{ turma }}/alunos/">
+        <input type="submit" value="Frequencia dos Alunos" />
+    </form>
+
+    <br>
+
+    <form action="/turmas/{{ turma.pk }}/create/aula/">
+        <input type="submit" value="Agendar Aula" />
+    </form>
+
+    <br>
+
+    <h2> Aulas Hoje </h2>
+    {% if aulas %}
+        <ul>
+        {% for a in aulas %}
+            <li><a href="/aula/qrcode/{{ a.id }}/">{{ a.inicio }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhuma aula hoje :)</p>
+    {% endif %}
+
+    {% endblock %}
+{% endif %}

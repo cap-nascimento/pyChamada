@@ -25,7 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('django.contrib.auth.urls')),
     path('account/register/', views.register, name='register'),
-    path('account/register_user/', views.register_user, name='register_user'),
 
     #turma
     path('turmas/', include("turma.urls")),
