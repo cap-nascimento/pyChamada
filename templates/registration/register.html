@@ -3,8 +3,14 @@
 {% block content %}
     {% if not user.is_authenticated %}
         <p>Sign Up</p>
-        {{ errors }}
-        <form action="/account/register_user/" method="post">
+        {% if errors %}
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form action="/account/register/" method="post">
             {% csrf_token %}
             {{ form }}
             <button type="submit">OK</button>
