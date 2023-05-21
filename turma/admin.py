@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Turma
+
+
+class TurmaAdmin(admin.ModelAdmin):
+    fields = [ "codigo", "nome", "responsavel" ]
+
+
+admin.site.register(Turma, TurmaAdmin)

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Suas Turmas{% endblock %}
+
+{% if user.is_authenticated %}
+    {% block content %}
+        <h1> Suas Turmas</h1>
+
+        <br>
+
+        <form action="/turmas/create/turma/">
+            <input type="submit" value="Criar Turma" />
+        </form>
+
+        <br>
+
+        {% if turmas %}
+            <ul>
+            {% for t in turmas %}
+                <li><a href="/turmas/detail/{{ t.id }}/">{{ t.codigo }} {{ t.nome }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Nenhuma turma cadastrada.</p>
+        {% endif %}
+    {% endblock %}
+{% endif %}
