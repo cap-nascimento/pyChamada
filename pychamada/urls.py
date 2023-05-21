@@ -28,5 +28,5 @@ urlpatterns = [
     path('account/register_user/', views.register_user, name='register_user'),
 
     #turma
-    path('turmas/', include("turma.urls"))
+    path('turmas/', include("turma.urls")),
 ]
