@@ -1,5 +1,4 @@
-import datetime
-
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
@@ -7,9 +6,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 from .models import Turma,Inscricao
-from aula.models import Aula
+from aula.models import Aula, Presenca
 
 from .forms import  *
+
+from qrcodereader.utils import decrypt_content, format_datetime, timecount
 
 # Create your views here.
 
@@ -68,4 +69,24 @@ def register_aluno(request, turma_id):
         inscricao.aluno = request.user
         inscricao.save()
         messages.success(request,"Inscricao Realizada")
+    return redirect(reverse('home'))
+
+
+def register_presenca(request, token):
+    message = decrypt_content(token, 'user password')
+    register_time, aula_id = message.split(',')
+    register_time = datetime.strptime(register_time, '%d-%m-%y %H:%M:%S')
+    current_time = format_datetime(datetime.now())
+    diff_time = current_time - register_time
+    elapsed_time = timecount(str(diff_time))
+    if elapsed_time <= 300:
+        aula = Aula.objects.get(id = aula_id)
+        presenca = Presenca(
+            aula = aula, aluno = request.user, registro = register_time
+        )
+        presenca.save()
+        messages.success(request, 'Presença registrada!')
+    else:
+        messages.error(request, 'Tempo Esgotado!')
+        
     return redirect(reverse('home'))

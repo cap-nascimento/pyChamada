@@ -5,7 +5,9 @@ from django.contrib.auth.decorators import login_required
 from turma.models import Turma
 from aula.models import Aula
 
-from .utils import generate_qrcode
+from .utils import generate_qrcode, encrypt_content
+
+from datetime import datetime
 
 @login_required
 def qrcode_turma(request, filename):
@@ -43,19 +45,21 @@ def qrcode_generator(request, type, id):
 def qrcode_generator_helper(request, type, instance):
     if type == 'turma':
         if instance:
-            token = generate_qrcode({
+            filename = generate_qrcode({
                 'url': 'http://' + request.get_host() + '/turmas/',
                 'id': str(instance.id) + '/',
                 'ext': 'register',
             })
-            return qrcode_turma(request, token)
+            return qrcode_turma(request, filename)
         
     if type == 'aula':
         if instance:
-            token = generate_qrcode({
+            filename = generate_qrcode({
                 'url': 'http://' + request.get_host() + '/turmas/aula/',
-                'id': str(instance.id) + '/',
-                'ext': 'register',
+                'token': encrypt_content(
+                    datetime.now().strftime("%d-%m-%y %H:%M:%S") + ',' + str(instance.id),
+                    'user password',
+                ) + '/',
             })
-            return qrcode_presenca(request, token)
+            return qrcode_presenca(request, filename)
         
