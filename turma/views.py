@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Turma,Inscricao
 from aula.models import Aula, Presenca
+from permissions.models import UserRole
 
 from .forms import  *
 
@@ -16,10 +17,15 @@ from qrcodereader.utils import decrypt_content, format_datetime, timecount
 
 @login_required
 def index_turmas(request):
-    turmas = Turma.objects.filter(responsavel = request.user)
+    user_role = UserRole.objects.get(user_id = request.user.id)
+    turmas = None
+    if user_role.role == 'PROFESSOR':
+        turmas = Turma.objects.filter(responsavel = request.user)
+        
     return render(request, 'turma/index.html', {
         'turmas' : turmas,
         'responsavel' : request.user,
+        'user_role': user_role.role
     })
 
 @login_required
@@ -51,10 +57,21 @@ def create_turma_post(request):
 @login_required
 def detail_turma(request, turma_id):
     aulas = Aula.objects.filter(turma = turma_id)
+    user_role = UserRole.objects.get(user_id = request.user.id)
     return render(request, 'turma/detail.html', {
         'aulas': aulas,
-        'turma': Turma.objects.get(pk = turma_id)
+        'turma': Turma.objects.get(pk = turma_id),
+        'user_role': user_role.role,
     })
+
+
+def search_turma(request):
+    if request.method == 'POST':
+        keyword = request.POST.get('codigo_turma')
+        turmas = Turma.objects.filter(string__contains=keyword)
+        
+    return redirect(reverse('index_turmas'))
+
 
 @login_required
 def register_aluno(request, turma_id):

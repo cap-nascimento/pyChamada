@@ -12,17 +12,19 @@
 
     <br>
 
-    <form action="/turmas/{{ turma }}/alunos/">
-        <input type="submit" value="Frequencia dos Alunos" />
-    </form>
+    {% if user_role == 'PROFESSOR' %}
+        <form action="/turmas/{{ turma }}/alunos/">
+            <input type="submit" value="Frequencia dos Alunos" />
+        </form>
 
-    <br>
+        <br>
 
-    <form action="/turmas/{{ turma.pk }}/create/aula/">
-        <input type="submit" value="Agendar Aula" />
-    </form>
+        <form action="/turmas/{{ turma.pk }}/create/aula/">
+            <input type="submit" value="Agendar Aula" />
+        </form>
 
-    <br>
+        <br>
+    {% endif %}
 
     <h2> Aulas Hoje </h2>
     {% if aulas %}
