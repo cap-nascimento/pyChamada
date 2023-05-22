@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from turma.models import Turma
 from aula.models import Aula
@@ -8,21 +9,21 @@ from .utils import generate_qrcode, encrypt_content
 
 from datetime import datetime
 
-
+@login_required
 def qrcode_turma(request, filename):
     return render(request, 'qrcodereader/index.html', {
         'qr_type': 'turma',
         'filename': '/images/' + filename,
     })
 
-
+@login_required
 def qrcode_presenca(request, filename):
     return render(request, 'qrcodereader/index.html', {
         'qr_type': 'presenca',
         'filename': '/images/' + filename,
     })
     
-
+@login_required
 def qrcode_generator(request, type, id):
     if type == 'turma':
         try:

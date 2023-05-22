@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 from .models import Turma,Inscricao
 from aula.models import Aula, Presenca
@@ -13,6 +14,7 @@ from qrcodereader.utils import decrypt_content, format_datetime, timecount
 
 # Create your views here.
 
+@login_required
 def index_turmas(request):
     turmas = Turma.objects.filter(responsavel = request.user)
     return render(request, 'turma/index.html', {
@@ -20,13 +22,14 @@ def index_turmas(request):
         'responsavel' : request.user,
     })
 
-
+@login_required
 def create_turma(request):
     return render(request, 'turma/create.html', {
         'responsavel': request.user,
         'form': TurmaRegistrationForm(),
     })
 
+@login_required
 def create_turma_post(request):
     errors = None
     if request.method == 'POST':
@@ -45,6 +48,7 @@ def create_turma_post(request):
             'errors': errors,
         })
 
+@login_required
 def detail_turma(request, turma_id):
     aulas = Aula.objects.filter(turma = turma_id)
     return render(request, 'turma/detail.html', {
@@ -52,6 +56,7 @@ def detail_turma(request, turma_id):
         'turma': Turma.objects.get(pk = turma_id)
     })
 
+@login_required
 def register_aluno(request, turma_id):
     turma = Turma.objects.get(pk=turma_id)
     try:
