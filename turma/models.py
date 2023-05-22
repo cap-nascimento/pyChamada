@@ -8,5 +8,8 @@ class Turma(models.Model):
     nome = models.CharField(max_length=200)
     codigo = models.CharField(max_length=200)
     responsavel = models.ForeignKey(User, on_delete=models.CASCADE)
-    # alunos = models.ManyToManyRel(User)
-    
+
+
+class Inscricao(models.Model):
+    aluno = models.ForeignKey(User, on_delete=models.CASCADE)
+    turma = models.ForeignKey(Turma, on_delete=models.CASCADE)

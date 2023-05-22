@@ -2,9 +2,10 @@ import datetime
 
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Turma
+from .models import Turma,Inscricao
 from aula.models import Aula
 
 from .forms import  *
@@ -49,3 +50,17 @@ def detail_turma(request, turma_id):
         'aulas': aulas,
         'turma': Turma.objects.get(pk = turma_id)
     })
+
+def register_aluno(request, turma_id):
+    turma = Turma.objects.get(pk=turma_id)
+    try:
+        inscricao = Inscricao.objects.get(turma=turma, aluno = request.user)
+        messages.error(request, "Inscricao Duplicada!")
+        return redirect(reverse('home'))
+    except:
+        inscricao = Inscricao()
+        inscricao.turma = turma
+        inscricao.aluno = request.user
+        inscricao.save()
+        messages.success(request,"Inscricao Realizada")
+    return redirect(reverse('home'))

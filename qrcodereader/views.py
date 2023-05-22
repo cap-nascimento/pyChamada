@@ -17,12 +17,11 @@ def qrcode_turma(request, filename):
 def qrcode_presenca(request, filename):
     return render(request, 'qrcodereader/index.html', {
         'qr_type': 'presenca',
+        'filename': '/images/' + filename,
     })
     
 
 def qrcode_generator(request, type, id):
-    turma = None
-    aula = None
     if type == 'turma':
         try:
             turma = Turma.objects.get(id = id)
@@ -44,14 +43,18 @@ def qrcode_generator_helper(request, type, instance):
     if type == 'turma':
         if instance:
             token = generate_qrcode({
-                'url': 'http://localhost:8000/',
+                'url': 'http://' + request.get_host() + '/turmas/',
                 'id': str(instance.id) + '/',
-                'codigo': instance.codigo,
+                'ext': 'register',
             })
             return qrcode_turma(request, token)
         
     if type == 'aula':
         if instance:
-            token = generate_qrcode({})
+            token = generate_qrcode({
+                'url': 'http://' + request.get_host() + '/turmas/aula/',
+                'id': str(instance.id) + '/',
+                'ext': 'register',
+            })
             return qrcode_presenca(request, token)
         
