@@ -28,7 +28,7 @@
     {% if aulas %}
         <ul>
         {% for a in aulas %}
-            <li><a href="/aula/qrcode/{{ a.id }}/">{{ a.inicio }}</a></li>
+            <li><a href="/qrcode/generator/aula/{{ a.id }}">{{ a.inicio }}</a></li>
         {% endfor %}
         </ul>
     {% else %}
