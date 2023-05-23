@@ -20,7 +20,7 @@
             <p>Nenhuma turma para mostrar.</p>
         {% endif %}
 
-        {% if user_role == 'ALUNO' %}
+        {% comment %} {% if user_role == 'ALUNO' %}
         <h1>Cadastre-se em uma turma:</h1>
         <form action="/turmas/search/" method="post">
             {% csrf_token %}
@@ -28,7 +28,7 @@
             <input type="text" name="codigo_turma" />
             <input type="submit" value="Buscar" />
         </form>
-        {% endif %}
+        {% endif %} {% endcomment %}
         <p><a href="{% url 'home' %}">Voltar para home</a></p>
     {% endblock %}
 {% endif %}

@@ -24,17 +24,17 @@
         </form>
 
         <br>
-    {% endif %}
-
-    <h2> Aulas Hoje </h2>
-    {% if aulas %}
+        
+        <h2> Aulas Hoje </h2>
+        {% if aulas %}
         <ul>
-        {% for a in aulas %}
+            {% for a in aulas %}
             <li><a href="/qrcode/generator/aula/{{ a.id }}">{{ a.inicio }}</a></li>
-        {% endfor %}
+            {% endfor %}
         </ul>
-    {% else %}
+        {% else %}
         <p>Nenhuma aula hoje :)</p>
+        {% endif %}
     {% endif %}
 
     {% endblock %}

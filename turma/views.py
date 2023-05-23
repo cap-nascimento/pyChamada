@@ -71,12 +71,12 @@ def detail_turma(request, turma_id):
     })
 
 
-def search_turma(request):
-    if request.method == 'POST':
-        keyword = request.POST.get('codigo_turma')
-        turmas = Turma.objects.filter(string__contains=keyword)
+# def search_turma(request):
+#     if request.method == 'POST':
+#         keyword = request.POST.get('codigo_turma')
+#         turmas = Turma.objects.filter(string__contains=keyword)
         
-    return redirect(reverse('index_turmas'))
+#     return redirect(reverse('index_turmas'))
 
 
 @login_required

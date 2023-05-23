@@ -9,7 +9,7 @@ urlpatterns = [
     path('create/turma/', views.create_turma, name='create_turma'),
     path('create/turma/post/', views.create_turma_post, name='create_turma_post'),
     path('detail/<int:turma_id>/', views.detail_turma, name='detail_turma'),
-    path('search/', views.search_turma, name="search_turma"),
+    # path('search/', views.search_turma, name="search_turma"),
     
     # turma - aula paths
     path('<int:turma_id>/create/aula/', create_aula, name='create_aula'),
