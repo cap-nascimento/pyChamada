@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .forms import UserRegistrationForm
 
 from django.contrib.auth.models import User
+from permissions.models import UserRole
 
 
 def register(request):
@@ -16,6 +17,12 @@ def register(request):
                     username=form.data['nome'], email=form.data['email'], 
                     password=form.data['senha']
                 )
+                user_role = UserRole(
+                    user = user,
+                    role = form.data['tipo_usuario'],
+                    matricula = form.data['matricula'],
+                )
+                user_role.save()
                 return redirect(reverse('login'))
             except:
                 errors.append('An error occurred!')

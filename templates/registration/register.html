@@ -10,7 +10,7 @@
                 {% endfor %}
             </ul>
         {% endif %}
-        <form action="/account/register/" method="post">
+        <form action="/accounts/register/" method="post">
             {% csrf_token %}
             {{ form }}
             <button type="submit">OK</button>

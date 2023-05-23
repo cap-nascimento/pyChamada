@@ -4,23 +4,31 @@
     {% block content %}
         <h1> Suas Turmas</h1>
 
-        <br>
-
+        {% if user_role == 'PROFESSOR' %}
         <form action="/turmas/create/turma/">
             <input type="submit" value="Criar Turma" />
         </form>
-
-        <br>
+        {% endif %}
 
         {% if turmas %}
             <ul>
             {% for t in turmas %}
-                <li><a href="/turmas/detail/{{ t.id }}/">{{ t.codigo }} {{ t.nome }}</a></li>
+                <li><a href={{ href }}{{ t.id }}>{{ t.codigo }} {{ t.nome }}</a></li>
             {% endfor %}
             </ul>
         {% else %}
-            <p>Nenhuma turma cadastrada.</p>
+            <p>Nenhuma turma para mostrar.</p>
         {% endif %}
+
+        {% comment %} {% if user_role == 'ALUNO' %}
+        <h1>Cadastre-se em uma turma:</h1>
+        <form action="/turmas/search/" method="post">
+            {% csrf_token %}
+            <label>Digite o código da disciplina:</label>
+            <input type="text" name="codigo_turma" />
+            <input type="submit" value="Buscar" />
+        </form>
+        {% endif %} {% endcomment %}
         <p><a href="{% url 'home' %}">Voltar para home</a></p>
     {% endblock %}
 {% endif %}

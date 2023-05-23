@@ -23,8 +23,8 @@ from . import views
 urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('admin/', admin.site.urls),
-    path('account/', include('django.contrib.auth.urls')),
-    path('account/register/', views.register, name='register'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register/', views.register, name='register'),
 
     #turma
     path('turmas/', include("turma.urls")),

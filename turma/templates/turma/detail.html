@@ -12,27 +12,29 @@
 
     <br>
 
-    <form action="/turmas/{{ turma }}/alunos/">
-        <input type="submit" value="Frequencia dos Alunos" />
-    </form>
+    {% if user_role == 'PROFESSOR' %}
+        <form action="/turmas/frequencia/{{ turma.pk }}/">
+            <input type="submit" value="Frequencia dos Alunos" />
+        </form>
 
-    <br>
+        <br>
 
-    <form action="/turmas/{{ turma.pk }}/create/aula/">
-        <input type="submit" value="Agendar Aula" />
-    </form>
+        <form action="/turmas/{{ turma.pk }}/create/aula/">
+            <input type="submit" value="Agendar Aula" />
+        </form>
 
-    <br>
-
-    <h2> Aulas Hoje </h2>
-    {% if aulas %}
+        <br>
+        
+        <h2> Aulas Hoje </h2>
+        {% if aulas %}
         <ul>
-        {% for a in aulas %}
+            {% for a in aulas %}
             <li><a href="/qrcode/generator/aula/{{ a.id }}">{{ a.inicio }}</a></li>
-        {% endfor %}
+            {% endfor %}
         </ul>
-    {% else %}
+        {% else %}
         <p>Nenhuma aula hoje :)</p>
+        {% endif %}
     {% endif %}
 
     {% endblock %}

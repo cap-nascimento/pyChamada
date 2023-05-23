@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'turma.apps.TurmaConfig',
     'aula.apps.AulaConfig',
     'qrcodereader.apps.QrcodereaderConfig',
+    'permissions.apps.PermissionsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
