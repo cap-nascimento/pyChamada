@@ -13,19 +13,25 @@ from .forms import  *
 
 from qrcodereader.utils import decrypt_content, format_datetime, timecount
 
+from turma.utils import tabela_frequenica
+
 # Create your views here.
 
 @login_required
 def index_turmas(request):
     user_role = UserRole.objects.get(user_id = request.user.id)
-    turmas = None
     if user_role.role == 'PROFESSOR':
+        href = "/turmas/detail/"
         turmas = Turma.objects.filter(responsavel = request.user)
+    else:
+        turmas = [t.turma for t in Inscricao.objects.filter(aluno = request.user)]
+        href = f"/turmas/aluno/frequencia/"
         
     return render(request, 'turma/index.html', {
         'turmas' : turmas,
         'responsavel' : request.user,
-        'user_role': user_role.role
+        'user_role': user_role.role,
+        'href': href,
     })
 
 @login_required
@@ -88,7 +94,7 @@ def register_aluno(request, turma_id):
         messages.success(request,"Inscricao Realizada")
     return redirect(reverse('home'))
 
-
+@login_required
 def register_presenca(request, token):
     message = decrypt_content(token, 'user password')
     register_time, aula_id = message.split(',')
@@ -107,3 +113,12 @@ def register_presenca(request, token):
         messages.error(request, 'Tempo Esgotado!')
         
     return redirect(reverse('home'))
+
+@login_required
+def frequencia_aluno(request, turma_id):
+    return HttpResponse(tabela_frequenica(request,turma_id))
+
+@login_required
+def tabela_alunos(request, turma_id):
+    alunos = [i.aluno for i in Inscricao.objects.filter(turma = Turma.objects.get(pk = turma_id))]
+    return HttpResponse(tabela_frequenica(request,turma_id,alunos))

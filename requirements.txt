@@ -8,3 +8,7 @@ MarkupSafe==2.1.2
 python-dotenv==1.0.0
 sqlparse==0.4.3
 Werkzeug==2.2.3
+
+qrcode~=7.4.2
+pycryptodome~=3.18.0
+pandas
