@@ -13,7 +13,7 @@
         {% if turmas %}
             <ul>
             {% for t in turmas %}
-                <li><a href="/turmas/detail/{{ t.id }}/">{{ t.codigo }} {{ t.nome }}</a></li>
+                <li><a href={{ href }}{{ t.id }}>{{ t.codigo }} {{ t.nome }}</a></li>
             {% endfor %}
             </ul>
         {% else %}

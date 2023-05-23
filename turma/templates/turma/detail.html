@@ -13,7 +13,7 @@
     <br>
 
     {% if user_role == 'PROFESSOR' %}
-        <form action="/turmas/{{ turma }}/alunos/">
+        <form action="/turmas/frequencia/{{ turma.pk }}/">
             <input type="submit" value="Frequencia dos Alunos" />
         </form>
 

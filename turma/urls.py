@@ -18,4 +18,7 @@ urlpatterns = [
     # turma - user / turma - presenca paths
     path('<int:turma_id>/register/', views.register_aluno, name='register_aluno'),
     path('aula/<path:token>/', views.register_presenca, name='register_presenca'),
+
+    path('aluno/frequencia/<int:turma_id>/', views.frequencia_aluno, name='frequencia_aluno'),
+    path('frequencia/<int:turma_id>/', views.tabela_alunos, name='frequencia_turma'),
 ]
